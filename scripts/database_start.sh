@@ -1,0 +1,1 @@
+docker run -e POSTGRES_PASSWORD=hackme -e POSTGRES_USER=user -e POSTGRES_DB=blog -p 5433:5432 -d postgres
