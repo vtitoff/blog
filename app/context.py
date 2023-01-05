@@ -12,8 +12,7 @@ class AppContext:
 
 
     async def on_startup(self, app=None):
-        pass
-        # self.db = await asyncpg.create_pool(self.secrets.get('postgres_dsn'))
+        self.db = await asyncpg.create_pool(self.secrets.get('db'))
 
     async def on_shutdown(self, app=None):
         if self.db:

@@ -1,7 +1,9 @@
 from __future__ import annotations
 import dataclasses
+import json
 import asyncpg
 from app import dto
+from typing import Optional, List
 
 
 @dataclasses.dataclass(frozen=True)
@@ -11,12 +13,19 @@ class Service:
     currency: str
 
     @classmethod
-    def from_db(cls, row: asyncpg.Record) -> Service:
-        return cls(
-            name=row['name'],
-            cost=row['cost'],
-            currency=row['currency'],
-        )
+    def from_db(cls, row: asyncpg.Record) -> Optional[List[Service]]:
+        services = []
+        print(row)
+        for service in json.loads(row):
+            print(service)
+            services.append(
+                cls(
+                    name=service["name"],
+                    cost=service["cost"],
+                    currency=service["currency"],
+                )
+            )
+        return services
 
 
 @dataclasses.dataclass(frozen=True)
@@ -30,9 +39,9 @@ class User:
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> User:
         return cls(
-            login=row['login'],
-            first_name=row['first_name'],
-            last_name=row['last_name'],
-            user_info=row['user_info'],
-            services=row['services'], #TODO разбить на итерацию
+            login=row["login"],
+            first_name=row["first_name"],
+            last_name=row["last_name"],
+            user_info=row["user_info"],
+            services=Service.from_db(row["services"]),
         )
