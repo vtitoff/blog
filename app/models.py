@@ -15,9 +15,7 @@ class Service:
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> Optional[List[Service]]:
         services = []
-        print(row)
         for service in json.loads(row):
-            print(service)
             services.append(
                 cls(
                     name=service["name"],

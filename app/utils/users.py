@@ -1,9 +1,7 @@
 import typing as tp
 import asyncio
 from app.context import AppContext
-from app import storage
-from app import dto
-from app import models
+from app import storage, models, dto
 
 
 async def fetchall(context: AppContext) -> tp.List[models.User]:
