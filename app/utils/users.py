@@ -11,5 +11,4 @@ async def fetchall(context: AppContext) -> tp.List[models.User]:
 
 async def create_user(context: AppContext, **kwargs) -> models.User:
     user = await storage.create_user(context, **kwargs)
-    print(f"USER {user}")
     return user

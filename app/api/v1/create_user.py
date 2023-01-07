@@ -9,7 +9,10 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
     request_body = await req.json()
     user_services = []
     for service in request_body["services"]:
-        user_services.append(models.Service.from_request(service))
+        try:
+            user_services.append(models.Service.from_request(service))
+        except KeyError:
+            return web.json_response({"error": "key error!"}, status=400)
     user = await users_utils.create_user(
         context,
         login=request_body["login"],
