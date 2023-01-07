@@ -1,5 +1,5 @@
 from aiohttp import web
-from app.api.v1 import ping, get_users
+from app.api.v1 import ping, get_users, create_user
 from app.context import AppContext
 
 
@@ -10,7 +10,7 @@ def wrap_handler(handler, context, request_parser=None):
                 request = await request_parser(request)
             except ValueError as exc:
                 return web.json_response(
-                    {'code': 'request_error', 'error': str(exc)}, status=400
+                    {"code": "request_error", "error": str(exc)}, status=400
                 )
         return await handler(request, context)
 
@@ -19,10 +19,14 @@ def wrap_handler(handler, context, request_parser=None):
 
 def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_get(
-        '/v1/ping',
+        "/v1/ping",
         wrap_handler(ping.handle, ctx),
     )
     app.router.add_get(
-        '/v1/users',
+        "/v1/users",
         wrap_handler(get_users.handle, ctx),
+    )
+    app.router.add_post(
+        "/v1/users",
+        wrap_handler(create_user.handle, ctx),
     )

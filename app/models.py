@@ -25,6 +25,14 @@ class Service:
             )
         return services
 
+    @classmethod
+    def from_request(cls, service: dict) -> Optional[Service]:
+        return cls(
+            name=service["name"],
+            cost=service["cost"],
+            currency=service["currency"],
+        )
+
 
 @dataclasses.dataclass(frozen=True)
 class User:
@@ -42,4 +50,14 @@ class User:
             last_name=row["last_name"],
             user_info=row["user_info"],
             services=Service.from_db(row["services"]),
+        )
+
+    @classmethod
+    def from_dict(cls, data: dict) -> User:
+        return cls(
+            login=data["login"],
+            first_name=data["first_name"],
+            last_name=data["last_name"],
+            user_info=data["user_info"],
+            services=[Service.from_request(service) for service in data["services"]],
         )
