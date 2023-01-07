@@ -4,10 +4,11 @@ import pathlib
 from aiohttp import web
 from app.context import AppContext
 from app import routes
+from app.middleware import middleware
 
 
 async def create_app(args):
-    app = web.Application()
+    app = web.Application(middlewares=[middleware.test_middleware])
     ctx = AppContext(secrets_dir=args.secrets_dir)
     app.on_startup.append(ctx.on_startup)
     app.on_shutdown.append(ctx.on_shutdown)
