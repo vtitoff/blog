@@ -20,14 +20,14 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
     )
     return web.json_response(
         {
-            "users": [to_response(user)],
+            "result": [to_response(user)],
         }
     )
 
 
 def to_response(user: models.User) -> dict:
     return {
-        "result": {
+        "user": {
             "login": user.login,
             "first_name": user.first_name,
             "last_name": user.last_name,
