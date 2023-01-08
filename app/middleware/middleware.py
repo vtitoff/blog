@@ -1,8 +1,8 @@
 from aiohttp import web
 
+
 @web.middleware
-async def test_middleware(request, handler):
-    print('Middleware test called')
+async def basic_middleware(request, handler):
+    print(request)
     response = await handler(request)
-    print('Middleware after request called')
     return response

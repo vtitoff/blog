@@ -11,6 +11,16 @@ async def get_all_users(ctx: AppContext) -> tp.List[models.User]:
     return [models.User.from_db(row) for row in rows]
 
 
+async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
+    sql = """
+    select login, first_name, last_name, user_info, services from users where login = $1
+    """
+    row = await ctx.db.fetchrow(sql, login)
+    if row:
+        return models.User.from_db(row)
+    return None
+
+
 async def create_user(ctx: AppContext, **kwargs) -> tp.Optional[models.User]:
     sql = """
         INSERT INTO users (login, first_name, last_name, user_info, services) VALUES

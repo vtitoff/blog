@@ -9,6 +9,11 @@ async def fetchall(context: AppContext) -> tp.List[models.User]:
     return db_users
 
 
+async def fetchone(context: AppContext, login: str) -> models.User:
+    user = await storage.get_user(context, login)
+    return user
+
+
 async def create_user(context: AppContext, **kwargs) -> models.User:
     user = await storage.create_user(context, **kwargs)
     return user

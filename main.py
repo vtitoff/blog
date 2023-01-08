@@ -8,7 +8,7 @@ from app.middleware import middleware
 
 
 async def create_app(args):
-    app = web.Application(middlewares=[middleware.test_middleware])
+    app = web.Application(middlewares=[middleware.basic_middleware])
     ctx = AppContext(secrets_dir=args.secrets_dir)
     app.on_startup.append(ctx.on_startup)
     app.on_shutdown.append(ctx.on_shutdown)

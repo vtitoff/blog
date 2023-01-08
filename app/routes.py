@@ -1,5 +1,5 @@
 from aiohttp import web
-from app.api.v1 import ping, get_users, create_user
+from app.api.v1 import ping, get_users, create_user, get_user
 from app.context import AppContext
 
 
@@ -21,6 +21,10 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_get(
         "/v1/ping",
         wrap_handler(ping.handle, ctx),
+    )
+    app.router.add_get(
+        "/v1/users/{login}",
+        wrap_handler(get_user.handle, ctx),
     )
     app.router.add_get(
         "/v1/users",
