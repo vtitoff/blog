@@ -15,8 +15,10 @@ async def fetchone(ctx: AppContext, login: str) -> models.User:
 
 
 async def create_user(ctx: AppContext, **kwargs) -> models.User:
-    user = await storage.create_user(ctx, **kwargs)
-    return user
+    user_is_created = await storage.create_user(ctx, **kwargs)
+    if user_is_created:
+        user = await storage.get_user(ctx, kwargs["login"])
+        return user
 
 
 async def update_user(ctx: AppContext, **kwargs) -> models.User:

@@ -21,12 +21,12 @@ async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
     return None
 
 
-async def create_user(ctx: AppContext, **kwargs) -> tp.Optional[models.User]:
+async def create_user(ctx: AppContext, **kwargs) -> bool:
     sql = """
         INSERT INTO users (login, first_name, last_name, user_info, services) VALUES
         ($1, $2, $3, $4, $5)
         """
-    row = await ctx.db.fetch(
+    await ctx.db.fetch(
         sql,
         kwargs["login"],
         kwargs["first_name"],
@@ -34,14 +34,7 @@ async def create_user(ctx: AppContext, **kwargs) -> tp.Optional[models.User]:
         kwargs["user_info"],
         str(kwargs["services"]),
     )
-    user_dict = {
-        "login": kwargs["login"],
-        "first_name": kwargs["first_name"],
-        "last_name": kwargs["last_name"],
-        "user_info": kwargs["user_info"],
-        "services": kwargs["services"],
-    }
-    return models.User.from_dict(user_dict)
+    return True
 
 
 async def update_users_field(ctx: AppContext, login: str, field: tp.Any, value: tp.Any) -> tp.Optional[models.User]:
