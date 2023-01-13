@@ -42,3 +42,17 @@ async def create_user(ctx: AppContext, **kwargs) -> tp.Optional[models.User]:
         "services": kwargs["services"],
     }
     return models.User.from_dict(user_dict)
+
+
+async def update_users_field(ctx: AppContext, login: str, field: tp.Any, value: tp.Any) -> tp.Optional[models.User]:
+    sql = f"""
+        UPDATE users
+        SET {field} = $1
+        WHERE login = $2;
+        """
+    row = await ctx.db.fetch(
+        sql,
+        value,
+        login,
+    )
+    return row

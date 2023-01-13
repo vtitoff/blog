@@ -4,16 +4,27 @@ from app.context import AppContext
 from app import storage, models, dto
 
 
-async def fetchall(context: AppContext) -> tp.List[models.User]:
-    db_users = await storage.get_all_users(context)
+async def fetchall(ctx: AppContext) -> tp.List[models.User]:
+    db_users = await storage.get_all_users(ctx)
     return db_users
 
 
-async def fetchone(context: AppContext, login: str) -> models.User:
-    user = await storage.get_user(context, login)
+async def fetchone(ctx: AppContext, login: str) -> models.User:
+    user = await storage.get_user(ctx, login)
     return user
 
 
-async def create_user(context: AppContext, **kwargs) -> models.User:
-    user = await storage.create_user(context, **kwargs)
+async def create_user(ctx: AppContext, **kwargs) -> models.User:
+    user = await storage.create_user(ctx, **kwargs)
     return user
+
+
+async def update_user(ctx: AppContext, **kwargs) -> models.User:
+    user = await storage.get_user(ctx, kwargs["login"])
+    if user:
+        for field in kwargs:
+            if field == "login":
+                pass
+            await storage.update_users_field(ctx, kwargs["login"], field, kwargs[field])
+        user = await storage.get_user(ctx, kwargs["login"])
+        return user
