@@ -8,7 +8,8 @@ create table users(
 
 create table user_services(
     id uuid primary key,
-    name text,
+    title varchar(50),
+    description text,
     user_login text,
     cost float,
     currency text

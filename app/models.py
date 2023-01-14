@@ -2,14 +2,14 @@ from __future__ import annotations
 import dataclasses
 import json
 import asyncpg
-from app import dto
 from typing import Optional, List
 
 
 @dataclasses.dataclass(frozen=True)
 class Service:
     id: str
-    name: str
+    title: str
+    description: str
     cost: float
     currency: str
     user_login: str
@@ -22,7 +22,8 @@ class Service:
             services.append(
                 cls(
                     id=service["id"],
-                    name=service["name"],
+                    title=service["title"],
+                    description=service["description"],
                     cost=service["cost"],
                     currency=service["currency"],
                     user_login=service["user_login"]
@@ -34,7 +35,8 @@ class Service:
     def from_request(cls, service: dict) -> Optional[Service]:
         return cls(
             id=service["id"],
-            name=service["name"],
+            title=service["title"],
+            description=service["description"],
             cost=service["cost"],
             currency=service["currency"],
             user_login=service["user_login"]
