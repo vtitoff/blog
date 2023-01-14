@@ -4,8 +4,8 @@ from app.context import AppContext
 from app import storage, models, dto
 
 
-async def fetchall(ctx: AppContext) -> tp.List[models.Service]:
-    db_services = await storage.get_all_services(ctx)
+async def get_services_by_login(ctx: AppContext, login: str) -> tp.List[models.Service]:
+    db_services = await storage.get_services_by_login(ctx, login)
     return db_services
 
 

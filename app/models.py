@@ -16,20 +16,15 @@ class Service:
 
 
     @classmethod
-    def from_db(cls, row: asyncpg.Record) -> Optional[List[Service]]:
-        services = []
-        for service in json.loads(row):
-            services.append(
-                cls(
-                    id=service["id"],
-                    title=service["title"],
-                    description=service["description"],
-                    cost=service["cost"],
-                    currency=service["currency"],
-                    user_login=service["user_login"]
-                )
-            )
-        return services
+    def from_db(cls, row: asyncpg.Record) -> Service:
+        return cls(
+            id=row["id"],
+            title=row["title"],
+            description=row["description"],
+            cost=row["cost"],
+            currency=row["currency"],
+            user_login=row["user_login"]
+        )
 
     @classmethod
     def from_request(cls, service: dict) -> Optional[Service]:

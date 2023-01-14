@@ -58,3 +58,11 @@ async def delete_user(ctx: AppContext, login: str) -> bool:
     """
     row = await ctx.db.execute(sql, login)
     return True
+
+
+async def get_services_by_login(ctx: AppContext, login: str) -> tp.Optional[models.User]:
+    sql = """
+    select id, title, description, cost, currency, user_login from user_services where user_login = $1
+    """
+    rows = await ctx.db.fetch(sql, login)
+    return [models.Service.from_db(row) for row in rows]
