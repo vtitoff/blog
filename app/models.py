@@ -8,9 +8,12 @@ from typing import Optional, List
 
 @dataclasses.dataclass(frozen=True)
 class Service:
+    id: str
     name: str
     cost: float
     currency: str
+    user_login: str
+
 
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> Optional[List[Service]]:
@@ -18,9 +21,11 @@ class Service:
         for service in json.loads(row):
             services.append(
                 cls(
+                    id=service["id"],
                     name=service["name"],
                     cost=service["cost"],
                     currency=service["currency"],
+                    user_login=service["user_login"]
                 )
             )
         return services
@@ -28,9 +33,11 @@ class Service:
     @classmethod
     def from_request(cls, service: dict) -> Optional[Service]:
         return cls(
+            id=service["id"],
             name=service["name"],
             cost=service["cost"],
             currency=service["currency"],
+            user_login=service["user_login"]
         )
 
 
@@ -40,7 +47,7 @@ class User:
     first_name: str
     last_name: str
     user_info: str
-    services: list[Service]
+    contacts: str
 
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> User:
@@ -49,7 +56,7 @@ class User:
             first_name=row["first_name"],
             last_name=row["last_name"],
             user_info=row["user_info"],
-            services=Service.from_db(row["services"]),
+            contacts=row["contacts"]
         )
 
     @classmethod
@@ -59,5 +66,5 @@ class User:
             first_name=data["first_name"],
             last_name=data["last_name"],
             user_info=data["user_info"],
-            services=[Service.from_request(service) for service in data["services"]],
+            contacts=data["contacts"]
         )

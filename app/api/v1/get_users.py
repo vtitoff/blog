@@ -20,12 +20,5 @@ def to_response(user: models.User) -> dict:
         "first_name": user.first_name,
         "last_name": user.last_name,
         "user_info": user.user_info,
-        "services": [
-            {
-                "service_name": service.name,
-                "service_cost": service.cost,
-                "service_currency": service.currency,
-            }
-            for service in user.services
-        ],
+        "contacts": user.contacts
     }
