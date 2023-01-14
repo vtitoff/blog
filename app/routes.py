@@ -1,5 +1,5 @@
 from aiohttp import web
-from app.api.v1 import ping, get_users, create_user, get_user, update_user
+from app.api.v1 import ping, get_users, create_user, get_user, update_user, delete_user
 from app.context import AppContext
 
 
@@ -37,4 +37,8 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_patch(
         "/v1/users/{login}/update",
         wrap_handler(update_user.handle, ctx),
+    )
+    app.router.add_delete(
+        "/v1/users/{login}/delete",
+        wrap_handler(delete_user.handle, ctx),
     )

@@ -49,3 +49,12 @@ async def update_users_field(ctx: AppContext, login: str, field: tp.Any, value: 
         login,
     )
     return row
+
+
+async def delete_user(ctx: AppContext, login: str) -> bool:
+    sql = """
+    delete from users 
+    where login = $1
+    """
+    row = await ctx.db.execute(sql, login)
+    return True

@@ -30,3 +30,9 @@ async def update_user(ctx: AppContext, **kwargs) -> models.User:
             await storage.update_users_field(ctx, kwargs["login"], field, kwargs[field])
         user = await storage.get_user(ctx, kwargs["login"])
         return user
+
+
+async def delete_user(ctx: AppContext, login: str) -> models.User:
+    user_is_deleted = await storage.delete_user(ctx, login)
+    if user_is_deleted:
+        return 'user is deleted'
