@@ -2,9 +2,11 @@ import typing as tp
 import asyncio
 from app.context import AppContext
 from app import storage, models, dto
+from app import constants
 
 
 async def fetchall(ctx: AppContext) -> tp.List[models.User]:
+    count = await storage.count_all(ctx, constants.USERS_TABLE)
     db_users = await storage.get_all_users(ctx)
     return db_users
 

@@ -10,7 +10,7 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
     if not user:
         return web.json_response(
             {
-                "result": "",
+                "result": [],
             },
             status=404,
         )
