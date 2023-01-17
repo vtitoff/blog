@@ -3,6 +3,7 @@ from app.context import AppContext
 from app import models
 from app.constants import USERS_TABLE, SERVICES_TABLE
 
+
 async def get_all_users(ctx: AppContext) -> tp.List[models.User]:
     sql = f"""
     select login, first_name, last_name, user_info, contacts from {USERS_TABLE} order by login
@@ -37,7 +38,9 @@ async def create_user(ctx: AppContext, **kwargs) -> bool:
     return True
 
 
-async def update_users_field(ctx: AppContext, login: str, field: tp.Any, value: tp.Any) -> tp.Optional[models.User]:
+async def update_users_field(
+    ctx: AppContext, login: str, field: tp.Any, value: tp.Any
+) -> tp.Optional[models.User]:
     sql = f"""
         UPDATE {USERS_TABLE}
         SET {field} = $1
@@ -60,7 +63,9 @@ async def delete_user(ctx: AppContext, login: str) -> bool:
     return True
 
 
-async def get_services_by_login(ctx: AppContext, login: str) -> tp.Optional[models.User]:
+async def get_services_by_login(
+    ctx: AppContext, login: str
+) -> tp.Optional[models.User]:
     sql = f"""
     select id, title, description, cost, currency, user_login from {SERVICES_TABLE} where user_login = $1
     """

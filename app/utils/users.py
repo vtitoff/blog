@@ -5,10 +5,10 @@ from app import storage, models, dto
 from app import constants
 
 
-async def fetchall(ctx: AppContext) -> tp.List[models.User]:
+async def fetchall(ctx: AppContext) -> tp.Tuple[tp.List[models.User], int]:
     count = await storage.count_all(ctx, constants.USERS_TABLE)
     db_users = await storage.get_all_users(ctx)
-    return db_users
+    return db_users, count
 
 
 async def fetchone(ctx: AppContext, login: str) -> models.User:
@@ -37,4 +37,4 @@ async def update_user(ctx: AppContext, **kwargs) -> models.User:
 async def delete_user(ctx: AppContext, login: str) -> models.User:
     user_is_deleted = await storage.delete_user(ctx, login)
     if user_is_deleted:
-        return 'user is deleted'
+        return "user is deleted"

@@ -1,5 +1,13 @@
 from aiohttp import web
-from app.api.v1 import ping, get_users, create_user, get_user, update_user, delete_user, get_services_by_login
+from app.api.v1 import (
+    ping,
+    get_users,
+    create_user,
+    get_user,
+    update_user,
+    delete_user,
+    get_services_by_login,
+)
 from app.context import AppContext
 
 

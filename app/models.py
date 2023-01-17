@@ -14,7 +14,6 @@ class Service:
     currency: str
     user_login: str
 
-
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> Service:
         return cls(
@@ -23,7 +22,7 @@ class Service:
             description=row["description"],
             cost=row["cost"],
             currency=row["currency"],
-            user_login=row["user_login"]
+            user_login=row["user_login"],
         )
 
     @classmethod
@@ -34,7 +33,7 @@ class Service:
             description=service["description"],
             cost=service["cost"],
             currency=service["currency"],
-            user_login=service["user_login"]
+            user_login=service["user_login"],
         )
 
 
@@ -53,7 +52,7 @@ class User:
             first_name=row["first_name"],
             last_name=row["last_name"],
             user_info=row["user_info"],
-            contacts=row["contacts"]
+            contacts=row["contacts"],
         )
 
     @classmethod
@@ -63,5 +62,5 @@ class User:
             first_name=data["first_name"],
             last_name=data["last_name"],
             user_info=data["user_info"],
-            contacts=data["contacts"]
+            contacts=data["contacts"],
         )

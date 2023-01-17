@@ -35,4 +35,4 @@ async def update_service(ctx: AppContext, **kwargs) -> models.Service:
 async def delete_service(ctx: AppContext, id: str) -> str:
     service_is_deleted = await storage.delete_service(ctx, id)
     if service_is_deleted:
-        return 'service is deleted'
+        return "service is deleted"

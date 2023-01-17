@@ -17,6 +17,6 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
     return web.json_response(
         {
             "result": {},
-        }, status=204
+        },
+        status=204,
     )
-

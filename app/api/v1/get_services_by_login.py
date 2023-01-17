@@ -6,7 +6,9 @@ from app.utils import services as service_utils
 
 
 async def handle(req: web.Request, context: AppContext) -> web.Response:
-    services = await service_utils.get_services_by_login(context, req.match_info["login"])
+    services = await service_utils.get_services_by_login(
+        context, req.match_info["login"]
+    )
     if not services:
         return web.json_response(
             {

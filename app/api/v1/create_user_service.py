@@ -13,7 +13,7 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
         description=request_body["description"],
         cost=request_body["cost"],
         currency=request_body["currency"],
-        user_login=request_body["user_login"]
+        user_login=request_body["user_login"],
     )
     return web.json_response(
         {

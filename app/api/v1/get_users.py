@@ -3,13 +3,20 @@ from aiohttp import web
 from app.context import AppContext
 from app import dto, models
 from app.utils import users as users_utils
+from app.constants import USERS_PER_PAGE
+from app.utils.query_validator import LimitQueryValidator, PageQueryValidator
 
 
-async def handle(_: web.Request, context: AppContext) -> web.Response:
-    users = await users_utils.fetchall(context)
+async def handle(req: web.Request, context: AppContext) -> web.Response:
+    page = PageQueryValidator.get_int(req.rel_url.query.get("page", '0'))
+    page_limit = LimitQueryValidator.get_int(req.rel_url.query.get("limit", USERS_PER_PAGE))
+    users, total_count = await users_utils.fetchall(context)
     return web.json_response(
         {
-            "users": [to_response(user) for user in users],
+            "result": {
+                "count": total_count,
+                "users": [to_response(user) for user in users],
+            }
         }
     )
 
@@ -20,5 +27,5 @@ def to_response(user: models.User) -> dict:
         "first_name": user.first_name,
         "last_name": user.last_name,
         "user_info": user.user_info,
-        "contacts": user.contacts
+        "contacts": user.contacts,
     }
