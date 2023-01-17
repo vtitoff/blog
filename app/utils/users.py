@@ -5,9 +5,9 @@ from app import storage, models, dto
 from app import constants
 
 
-async def fetchall(ctx: AppContext) -> tp.Tuple[tp.List[models.User], int]:
+async def fetchall(ctx: AppContext, page, page_limit) -> tp.Tuple[tp.List[models.User], int]:
     count = await storage.count_all(ctx, constants.USERS_TABLE)
-    db_users = await storage.get_all_users(ctx)
+    db_users = await storage.get_all_users(ctx, page, page_limit)
     return db_users, count
 
 

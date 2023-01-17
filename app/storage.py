@@ -4,9 +4,18 @@ from app import models
 from app.constants import USERS_TABLE, SERVICES_TABLE
 
 
-async def get_all_users(ctx: AppContext) -> tp.List[models.User]:
+async def get_all_users(ctx: AppContext, page, page_limit) -> tp.List[models.User]:
     sql = f"""
-    select login, first_name, last_name, user_info, contacts from {USERS_TABLE} order by login
+    select 
+        login, 
+        first_name, 
+        last_name, 
+        user_info, 
+        contacts 
+        from {USERS_TABLE} 
+        order by login
+        OFFSET {page*page_limit}
+        LIMIT {page_limit}
     """
     rows = await ctx.db.fetch(sql)
     return [models.User.from_db(row) for row in rows]
