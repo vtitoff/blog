@@ -2,7 +2,8 @@ from __future__ import annotations
 import dataclasses
 import json
 import asyncpg
-from typing import Optional, List
+import typing as tp
+import app.models as models
 
 
 @dataclasses.dataclass(frozen=True)
@@ -15,7 +16,7 @@ class Service:
     user_login: str
 
     @classmethod
-    def from_db(cls, row: asyncpg.Record) -> Service:
+    def from_db(cls, row: tp.Union[asyncpg.Record, models.Service]) -> Service:
         return cls(
             id=row["id"],
             title=row["title"],
@@ -26,7 +27,7 @@ class Service:
         )
 
     @classmethod
-    def from_request(cls, service: dict) -> Optional[Service]:
+    def from_request(cls, service: dict) -> tp.Optional[Service]:
         return cls(
             id=service["id"],
             title=service["title"],
@@ -35,6 +36,17 @@ class Service:
             currency=service["currency"],
             user_login=service["user_login"],
         )
+
+    @classmethod
+    def to_dict(cls, service: models.Service) -> dict:
+        return {
+            "id": str(service.id),
+            "title": service.title,
+            "description": service.description,
+            "cost": service.cost,
+            "currency": service.currency,
+            "user_login": service.user_login,
+        }
 
 
 @dataclasses.dataclass(frozen=True)

@@ -1,6 +1,7 @@
 import abc
 from app.constants import USERS_PER_PAGE
 
+
 class BasicQueryValidator(abc.ABCMeta):
     @staticmethod
     @abc.abstractmethod

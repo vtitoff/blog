@@ -6,7 +6,7 @@ from app.utils import users as users_utils
 
 
 async def handle(req: web.Request, context: AppContext) -> web.Response:
-    user = await users_utils.fetchone(context, req.match_info["login"])
+    user, user_services = await users_utils.fetchone(context, req.match_info["login"])
     if not user:
         return web.json_response(
             {
@@ -16,16 +16,17 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
         )
     return web.json_response(
         {
-            "result": to_response(user),
+            "result": to_response(user, user_services),
         }
     )
 
 
-def to_response(user: models.User) -> dict:
+def to_response(user: models.User, user_services: tp.List[models.Service]) -> dict:
     return {
         "login": user.login,
         "first_name": user.first_name,
         "last_name": user.last_name,
         "user_info": user.user_info,
         "contacts": user.contacts,
+        "services": [service.to_dict(service) for service in user_services],
     }

@@ -8,9 +8,13 @@ from app.utils.query_validator import LimitQueryValidator, PageQueryValidator
 
 
 async def handle(req: web.Request, context: AppContext) -> web.Response:
-    page = PageQueryValidator.get_int(req.rel_url.query.get("page", '0'))
-    page_limit = LimitQueryValidator.get_int(req.rel_url.query.get("limit", USERS_PER_PAGE))
-    users, total_count = await users_utils.fetchall(context, page=page, page_limit=page_limit)
+    page = PageQueryValidator.get_int(req.rel_url.query.get("page", "0"))
+    page_limit = LimitQueryValidator.get_int(
+        req.rel_url.query.get("limit", USERS_PER_PAGE)
+    )
+    users, total_count = await users_utils.fetchall(
+        context, page=page, page_limit=page_limit
+    )
     return web.json_response(
         {
             "result": {

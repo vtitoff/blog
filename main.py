@@ -18,7 +18,7 @@ async def create_app(args):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--secrets-dir', type=pathlib.Path, required=True)
+    parser.add_argument("--secrets-dir", type=pathlib.Path, required=True)
     return parser.parse_args()
 
 
@@ -28,5 +28,5 @@ def main():
     web.run_app(app)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
