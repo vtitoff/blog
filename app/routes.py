@@ -9,6 +9,7 @@ from app.api.v1 import (
     get_services_by_login,
 )
 from app.context import AppContext
+from app import views
 
 
 def wrap_handler(handler, context, request_parser=None):
@@ -53,4 +54,8 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_get(
         "/v1/services/{login}",
         wrap_handler(get_services_by_login.handle, ctx),
+    )
+    app.router.add_get(
+        "/",
+        views.index,
     )

@@ -26,7 +26,9 @@ async def update_service(ctx: AppContext, **kwargs) -> models.Service:
     if service:
         for field in kwargs:
             if field != "id":
-                await storage.update_service_field(ctx, kwargs["id"], field, kwargs[field])
+                await storage.update_service_field(
+                    ctx, kwargs["id"], field, kwargs[field]
+                )
         service = await storage.get_service(ctx, kwargs["id"])
         return service
 
