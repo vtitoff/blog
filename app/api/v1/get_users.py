@@ -21,7 +21,14 @@ async def handle(req: web.Request, context: AppContext) -> web.Response:
                 "count": total_count,
                 "users": [to_response(user) for user in users],
             }
-        }
+        },
+        headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "content-type"}
+    )
+
+
+async def options_handle(req: web.Request, context: AppContext) -> web.Response:
+    return web.json_response(
+        headers={"Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "content-type"}
     )
 
 

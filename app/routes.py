@@ -39,6 +39,10 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
         "/v1/users",
         wrap_handler(get_users.handle, ctx),
     )
+    app.router.add_options(
+        "/v1/users",
+        wrap_handler(get_users.options_handle, ctx),
+    )
     app.router.add_post(
         "/v1/users",
         wrap_handler(create_user.handle, ctx),
@@ -58,4 +62,8 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_get(
         "/",
         views.index,
+    )
+    app.router.add_get(
+        "/{login}",
+        views.user,
     )

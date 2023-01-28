@@ -1,0 +1,13 @@
+.wrapper {
+    background-color: #0a6c6c;
+}
+
+.container {
+    padding: 0px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 100px;
+    max-width: 1500px;
+    margin: 0 auto;
+}

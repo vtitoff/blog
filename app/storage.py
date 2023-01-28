@@ -26,9 +26,7 @@ async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
     select login, first_name, last_name, user_info, contacts from {USERS_TABLE} where login = $1
     """
     row = await ctx.db.fetchrow(sql, login)
-    if row:
-        return models.User.from_db(row)
-    return None
+    return models.User.from_db(row) if row else None
 
 
 async def create_user(ctx: AppContext, **kwargs) -> bool:
@@ -87,5 +85,4 @@ async def count_all(ctx: AppContext, tablename) -> int:
     select count(*) from {tablename}
     """
     row = await ctx.db.fetchrow(sql)
-    if row:
-        return row[0]
+    return row[0]
