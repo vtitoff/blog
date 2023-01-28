@@ -15,11 +15,7 @@ function App() {
             headers: {
                 "Content-Type": "application/json"
             }
-        }).then(response => {response.json()}).then(
-            json => {
-                console.log(json)
-                setData(json)}
-        );
+        }).then(response => {response.json().then(json => console.log(json))})
     }
 
     update_data()
