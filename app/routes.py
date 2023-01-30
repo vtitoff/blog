@@ -61,9 +61,9 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
     )
     app.router.add_get(
         "/",
-        views.index,
+        wrap_handler(views.index, ctx),
     )
     app.router.add_get(
         "/{login}",
-        views.user,
+        wrap_handler(views.user, ctx),
     )
