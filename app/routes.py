@@ -28,35 +28,35 @@ def wrap_handler(handler, context, request_parser=None):
 
 def setup_routes(app: web.Application, ctx: AppContext) -> None:
     app.router.add_get(
-        "/v1/ping",
+        "/api/v1/ping",
         wrap_handler(ping.handle, ctx),
     )
     app.router.add_get(
-        "/v1/users/{login}",
+        "/api/v1/users/{login}",
         wrap_handler(get_user.handle, ctx),
     )
     app.router.add_get(
-        "/v1/users",
+        "/api/v1/users",
         wrap_handler(get_users.handle, ctx),
     )
     app.router.add_options(
-        "/v1/users",
+        "/api/v1/users",
         wrap_handler(get_users.options_handle, ctx),
     )
     app.router.add_post(
-        "/v1/users",
+        "/api/v1/users",
         wrap_handler(create_user.handle, ctx),
     )
     app.router.add_patch(
-        "/v1/users/{login}/update",
+        "/api/v1/users/{login}/update",
         wrap_handler(update_user.handle, ctx),
     )
     app.router.add_delete(
-        "/v1/users/{login}/delete",
+        "/api/v1/users/{login}/delete",
         wrap_handler(delete_user.handle, ctx),
     )
     app.router.add_get(
-        "/v1/services/{login}",
+        "/api/v1/services/{login}",
         wrap_handler(get_services_by_login.handle, ctx),
     )
     app.router.add_get(
