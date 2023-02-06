@@ -5,7 +5,7 @@ from app import dto, models
 from app.utils import users as users_utils
 
 
-async def handle(req: web.Request, ctx: AppContext) -> web.Response:
+async def handle(ctx: AppContext, req: web.Request) -> web.Response:
     request_body = await req.json()
     if not request_body.get("login"):
         return web.json_response({"error": "login not specified!"}, status=400)

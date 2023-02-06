@@ -5,7 +5,7 @@ from app import dto, models
 from app.utils import services as service_utils
 
 
-async def handle(req: web.Request, context: AppContext) -> web.Response:
+async def handle(context: AppContext, req: web.Request) -> web.Response:
     services = await service_utils.get_services_by_login(
         context, req.match_info["login"]
     )

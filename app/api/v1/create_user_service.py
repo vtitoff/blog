@@ -5,7 +5,7 @@ from app import dto, models
 from app.utils import services as service_utils
 
 
-async def handle(req: web.Request, context: AppContext) -> web.Response:
+async def handle(context: AppContext, req: web.Request) -> web.Response:
     request_body = await req.json()
     service = await service_utils.create_user(
         context,

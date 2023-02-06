@@ -8,7 +8,7 @@ from app.utils import users as users_utils
 
 
 @aiohttp_jinja2.template("index.html")
-async def index(req: web.Request, ctx: AppContext) -> dict:
+async def index(ctx: AppContext, req: web.Request) -> dict:
     return {"title": "Blog"}
 
 

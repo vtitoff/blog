@@ -5,7 +5,7 @@ from app import dto, models
 from app.utils import users as users_utils
 
 
-async def handle(req: web.Request, context: AppContext) -> web.Response:
+async def handle(context: AppContext, req: web.Request) -> web.Response:
     user = await users_utils.delete_user(context, req.match_info["login"])
     if not user:
         return web.json_response(

@@ -21,7 +21,7 @@ def wrap_handler(handler, context, request_parser=None):
                 return web.json_response(
                     {"code": "request_error", "error": str(exc)}, status=400
                 )
-        return await handler(request, context)
+        return await handler(context, request)
 
     return wrapper
 
