@@ -13,6 +13,6 @@ async def index(ctx: AppContext, req: web.Request) -> dict:
 
 
 @aiohttp_jinja2.template("user.html")
-async def user(req: web.Request, ctx: AppContext) -> dict:
-    # user, user_services = await users_utils.fetchone(ctx, req.match_info["login"])
+async def user(ctx: AppContext, req: web.Request) -> dict:
+    user, user_services = await users_utils.fetchone(ctx, req.match_info["login"])
     return {"user": user}
