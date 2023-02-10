@@ -19,6 +19,7 @@ async def create_app(args):
     app.on_startup.append(ctx.on_startup)
     app.on_shutdown.append(ctx.on_shutdown)
     setup_external_libraries(app)
+    app['static_root_url'] = '/static'
     routes.setup_routes(app, ctx)
     return app
 

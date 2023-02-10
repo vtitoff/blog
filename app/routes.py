@@ -67,3 +67,4 @@ def setup_routes(app: web.Application, ctx: AppContext) -> None:
         "/{login}",
         wrap_handler(views.user, ctx),
     )
+    app.add_routes([web.static('/static', "static")])
