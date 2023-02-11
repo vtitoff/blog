@@ -17,7 +17,8 @@ async def get_all_users(ctx: AppContext, page, page_limit) -> tp.List[models.Use
         country,
         city,
         gender,
-        rating
+        rating,
+        avatar_path
         from {USERS_TABLE} 
         order by login
         OFFSET {page*page_limit}
@@ -39,7 +40,8 @@ async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
             country,
             city,
             gender,
-            rating 
+            rating,
+            avatar_path
     from {USERS_TABLE} where login = $1
     """
     row = await ctx.db.fetchrow(sql, login)
@@ -59,8 +61,9 @@ async def create_user(ctx: AppContext, **kwargs) -> bool:
             country,
             city,
             gender,
-            rating ) VALUES
-        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+            rating,
+            avatar_path) VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
         """
     await ctx.db.fetch(
         sql,
@@ -75,6 +78,7 @@ async def create_user(ctx: AppContext, **kwargs) -> bool:
         kwargs["city"],
         kwargs["gender"],
         kwargs["rating"],
+        kwargs["avatar_path"],
     )
     return True
 

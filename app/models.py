@@ -69,6 +69,7 @@ class User:
     city: str
     gender: Gender
     rating: float
+    avatar_path: str
 
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> User:
@@ -83,7 +84,8 @@ class User:
             country=row["country"],
             city=row["city"],
             gender=row["gender"],
-            rating=row["rating"]
+            rating=row["rating"],
+            avatar_path=row["avatar_path"]
         )
 
     @classmethod
@@ -99,5 +101,6 @@ class User:
             country=data["country"],
             city=data["city"],
             gender=data["gender"],
-            rating=data["rating"]
+            rating=data["rating"],
+            avatar_path=data["avatar_path"]
         )

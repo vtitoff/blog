@@ -27,7 +27,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="text-center" id="author">
-                            <img src="https://bootstraptema.ru/snippets/element/2016/profilesection/myprofile.jpg">
+                            <img class="avatar" src="{{ static('img/')}}{{ user.avatar_path }}">
                             <h3>{{user.first_name}} {{user.last_name}}</h3>
                             <small class="label label-warning">Российская Федерация</small>
                             <p>{{ user.user_info }}</p>

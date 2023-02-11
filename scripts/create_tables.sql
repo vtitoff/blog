@@ -9,7 +9,8 @@ create table users(
     country varchar(50),
     city varchar(50),
     gender varchar(50),
-    rating decimal
+    rating decimal,
+    avatar_path text
 );
 
 create table user_services(
