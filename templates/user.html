@@ -56,23 +56,23 @@
                                     <tbody>
                                     <tr>
                                         <td class="active">Зарегистрирован:</td>
-                                        <td>-</td>
+                                        <td>{{user.registered}}</td>
                                     </tr>
                                     <tr>
                                         <td class="active">Последняя активность:</td>
-                                        <td>-</td>
+                                        <td>{{user.last_activity}}</td>
                                     </tr>
                                     <tr>
                                         <td class="active">Страна:</td>
-                                        <td>-</td>
+                                        <td>{{user.country}}</td>
                                     </tr>
                                     <tr>
                                         <td class="active">Город:</td>
-                                        <td>-</td>
+                                        <td>{{user.city}}</td>
                                     </tr>
                                     <tr>
                                         <td class="active">Пол:</td>
-                                        <td>-</td>
+                                        <td>{{user.gender}}</td>
                                     </tr>
                                     <tr>
                                         <td class="active">Полных лет:</td>
@@ -80,10 +80,8 @@
                                     </tr>
                                     <tr>
                                         <td class="active">Рейтинг пользователя:</td>
-                                        <td><i class="fa fa-star" style="color:red"></i> <i class="fa fa-star"
-                                                                                            style="color:red"></i> <i
-                                                class="fa fa-star" style="color:red"></i> <i class="fa fa-star"
-                                                                                             style="color:red"></i> 4/5
+                                        <td>
+                                            {{user.rating}}
                                         </td>
                                     </tr>
                                     </tbody>

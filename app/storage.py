@@ -11,7 +11,13 @@ async def get_all_users(ctx: AppContext, page, page_limit) -> tp.List[models.Use
         first_name, 
         last_name, 
         user_info, 
-        contacts 
+        contacts,
+        registered,
+        last_activity,
+        country,
+        city,
+        gender,
+        rating
         from {USERS_TABLE} 
         order by login
         OFFSET {page*page_limit}
@@ -23,7 +29,18 @@ async def get_all_users(ctx: AppContext, page, page_limit) -> tp.List[models.Use
 
 async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
     sql = f"""
-    select login, first_name, last_name, user_info, contacts from {USERS_TABLE} where login = $1
+    select  login, 
+            first_name, 
+            last_name, 
+            user_info, 
+            contacts, 
+            registered,
+            last_activity,
+            country,
+            city,
+            gender,
+            rating 
+    from {USERS_TABLE} where login = $1
     """
     row = await ctx.db.fetchrow(sql, login)
     return models.User.from_db(row) if row else None
@@ -31,8 +48,19 @@ async def get_user(ctx: AppContext, login: str) -> tp.Optional[models.User]:
 
 async def create_user(ctx: AppContext, **kwargs) -> bool:
     sql = f"""
-        INSERT INTO {USERS_TABLE} (login, first_name, last_name, user_info, contacts) VALUES
-        ($1, $2, $3, $4, $5)
+        INSERT INTO {USERS_TABLE} (
+            login, 
+            first_name, 
+            last_name, 
+            user_info, 
+            contacts, 
+            registered,
+            last_activity,
+            country,
+            city,
+            gender,
+            rating ) VALUES
+        ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
         """
     await ctx.db.fetch(
         sql,
@@ -41,6 +69,12 @@ async def create_user(ctx: AppContext, **kwargs) -> bool:
         kwargs["last_name"],
         kwargs["user_info"],
         kwargs["contacts"],
+        kwargs["registered"],
+        kwargs["last_activity"],
+        kwargs["country"],
+        kwargs["city"],
+        kwargs["gender"],
+        kwargs["rating"],
     )
     return True
 
