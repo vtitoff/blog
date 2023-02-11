@@ -3,7 +3,13 @@ create table users(
     first_name text,
     last_name text,
     user_info text,
-    contacts text
+    contacts text,
+    registered timestamp,
+    last_activity timestamp,
+    country varchar(50),
+    city varchar(50),
+    gender varchar(50),
+    rating decimal
 );
 
 create table user_services(

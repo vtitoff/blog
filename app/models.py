@@ -4,6 +4,13 @@ import json
 import asyncpg
 import typing as tp
 import app.models as models
+from datetime import datetime
+from enum import Enum
+
+
+class Gender(Enum):
+    male: "male"
+    female: "female"
 
 
 @dataclasses.dataclass(frozen=True)
@@ -56,6 +63,12 @@ class User:
     last_name: str
     user_info: str
     contacts: str
+    registered: datetime
+    last_activity: datetime
+    country: str
+    city: str
+    gender: Gender
+    rating: float
 
     @classmethod
     def from_db(cls, row: asyncpg.Record) -> User:
@@ -65,6 +78,12 @@ class User:
             last_name=row["last_name"],
             user_info=row["user_info"],
             contacts=row["contacts"],
+            registered=datetime.strptime(row["registered"], '%Y-%m-%d %H:%M:%S'),
+            last_activity=datetime.strptime(row["last_activity"], '%Y-%m-%d %H:%M:%S'),
+            country=row["country"],
+            city=row["city"],
+            gender=row["gender"],
+            rating=row["rating"]
         )
 
     @classmethod
@@ -75,4 +94,10 @@ class User:
             last_name=data["last_name"],
             user_info=data["user_info"],
             contacts=data["contacts"],
+            registered=datetime.strptime(data["registered"], '%Y-%m-%d %H:%M:%S'),
+            last_activity=datetime.strptime(data["last_activity"], '%Y-%m-%d %H:%M:%S'),
+            country=data["country"],
+            city=data["city"],
+            gender=data["gender"],
+            rating=data["rating"]
         )
